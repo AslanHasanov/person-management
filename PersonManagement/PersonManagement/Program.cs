@@ -54,13 +54,13 @@ namespace PersonManagement
                     }
 
                 }
-                else if(command =="/ remove - all - persons")
+                else if (command == "/remove-all-persons")
                 {
-                    for(int i = persons.Count-1; i >=0; i--)
+                    for (int i = persons.Count - 1; i >= 0; i--)
                     {
                         persons.RemoveAt(i);
                     }
-                        Console.WriteLine("Persons removed successfully");
+                    Console.WriteLine("Persons removed successfully");
                 }
                 else if (command == "/show-persons")
                 {
