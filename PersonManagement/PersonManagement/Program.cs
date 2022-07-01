@@ -5,9 +5,9 @@ namespace PersonManagement
 {
     internal class Program
     {
+        public static List<Person> persons { get; set; } = new List<Person>();
         static void Main(string[] args)
         {
-            List<Person> persons = new List<Person>();
 
             Console.WriteLine("Our available commands :");
             Console.WriteLine("/add-new-person");
@@ -33,8 +33,7 @@ namespace PersonManagement
                     Console.Write("Please add person's FIN code :");
                     string fin = Console.ReadLine();
 
-                    Person person = new Person(name, lastName, fin);
-                    persons.Add(person);
+                    Person person = AddNewPerson(name, lastName, fin);
 
                     Console.WriteLine(person.GetInfo() + " - Added to system.");
 
@@ -82,10 +81,18 @@ namespace PersonManagement
                 }
             }
         }
+        public static Person AddNewPerson(string name, string lastName, string fin)
+        {
+            Person person = new Person(name, lastName, fin);
+            persons.Add(person);
+            return person;
+        }
     }
 
     class Person
     {
+        public static uint currentIdCount = 1;
+        public uint Id { get; private set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string _fin;
@@ -114,6 +121,7 @@ namespace PersonManagement
             Name = name;
             LastName = lastName;
             FIN = fin;
+            Id=currentIdCount++;
         }
 
         public string GetFullName()
@@ -123,7 +131,8 @@ namespace PersonManagement
 
         public string GetInfo()
         {
-            return Name + " " + LastName + " " + FIN;
+            return Id+" "+Name + " " + LastName + " " + FIN;
         }
+
     }
 }
