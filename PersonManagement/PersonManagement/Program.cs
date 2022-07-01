@@ -11,8 +11,9 @@ namespace PersonManagement
 
             Console.WriteLine("Our available commands :");
             Console.WriteLine("/add-new-person");
-            Console.WriteLine("/remove-person");
+            Console.WriteLine("/remove-person by fin");
             Console.WriteLine("/remove-all-persons");
+            Console.WriteLine("/remove-by-Id");
             Console.WriteLine("/show-persons");
             Console.WriteLine("/exit");
 
@@ -38,7 +39,7 @@ namespace PersonManagement
                     Console.WriteLine(person.GetInfo() + " - Added to system.");
 
                 }
-                else if (command == "/remove-person")
+                else if (command == "/remove-person by fin")
                 {
                     Console.Write("To remove person, please enter his/her FIN code : ");
                     string fin = Console.ReadLine();
@@ -60,6 +61,13 @@ namespace PersonManagement
                         persons.RemoveAt(i);
                     }
                     Console.WriteLine("Persons removed successfully");
+                }
+                else if(command == "/remove-by-Id")
+                {
+                    Console.WriteLine("To remove id, please enter id number : ");
+                    uint id=Convert.ToUInt32( Console.ReadLine());
+                    RemoveById(id);
+
                 }
                 else if (command == "/show-persons")
                 {
@@ -87,11 +95,26 @@ namespace PersonManagement
             persons.Add(person);
             return person;
         }
+        public static uint RemoveById(uint id)
+        {
+            for(int i = 0; i < persons.Count; i++)
+            {
+                if(persons[i].Id == id)
+                {
+                    Console.WriteLine(persons[i].GetInfo());
+                    persons.RemoveAt(i);
+                    Console.WriteLine("Id removed successfully");
+                }
+            }
+            return id;
+        }
+
+
     }
 
     class Person
     {
-        public static uint currentIdCount = 1;
+        private static uint currentIdCount = 1;
         public uint Id { get; private set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -121,7 +144,7 @@ namespace PersonManagement
             Name = name;
             LastName = lastName;
             FIN = fin;
-            Id=currentIdCount++;
+            Id = currentIdCount++;
         }
 
         public string GetFullName()
@@ -131,8 +154,9 @@ namespace PersonManagement
 
         public string GetInfo()
         {
-            return Id+" "+Name + " " + LastName + " " + FIN;
+            return Id + " " + Name + " " + LastName + " " + FIN;
         }
+
 
     }
 }
