@@ -12,6 +12,7 @@ namespace PersonManagement
             Console.WriteLine("Our available commands :");
             Console.WriteLine("/add-new-person");
             Console.WriteLine("/remove-person");
+            Console.WriteLine("/remove-all-persons");
             Console.WriteLine("/show-persons");
             Console.WriteLine("/exit");
 
@@ -53,6 +54,14 @@ namespace PersonManagement
                     }
 
                 }
+                else if(command =="/ remove - all - persons")
+                {
+                    for(int i = persons.Count-1; i >=0; i--)
+                    {
+                        persons.RemoveAt(i);
+                    }
+                        Console.WriteLine("Persons removed successfully");
+                }
                 else if (command == "/show-persons")
                 {
                     Console.WriteLine("Persons in database : ");
@@ -79,7 +88,26 @@ namespace PersonManagement
     {
         public string Name { get; set; }
         public string LastName { get; set; }
-        public string FIN { get; set; }
+        public string _fin;
+        public string FIN
+        {
+            get
+            {
+                return _fin;
+            }
+            set
+            {
+                if (value.Length == 7)
+                {
+                    _fin = value;
+                }
+                else
+                {
+                    Console.WriteLine("Fin must be 7 characters");
+                }
+
+            }
+        }
 
         public Person(string name, string lastName, string fin)
         {
